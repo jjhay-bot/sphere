@@ -1,5 +1,5 @@
 import {
-  PolyhedronGeometry,
+  SphereBufferGeometry,
   Group,
   MathUtils,
   Mesh,
@@ -11,22 +11,7 @@ function createMeshGroup() {
   // but cannot be seen itself
   const group = new Group();
 
-  const verticesOfCube = [
-    -1,-1,-1,    1,-1,-1,    1, 1,-1,    -1, 1,-1,
-    -1,-1, 1,    1,-1, 1,    1, 1, 1,    -1, 1, 1,
-  ];
-
-  const indicesOfFaces = [
-      2,1,0,    0,3,2,
-      0,4,7,    7,3,0,
-      0,1,5,    5,4,0,
-      1,2,6,    6,5,1,
-      2,3,7,    7,6,2,
-      4,5,6,    6,7,4
-  ];
-
-  const geometry = new PolyhedronGeometry( verticesOfCube, indicesOfFaces, 1, 2 );
-
+  const geometry = new SphereBufferGeometry(0.25, 16, 16);
 
   const material = new MeshStandardMaterial({
     color: 'indigo',
@@ -35,7 +20,7 @@ function createMeshGroup() {
   const protoSphere = new Mesh(geometry, material);
 
   // add the protoSphere to the group
-  // group.add(protoSphere);
+  group.add(protoSphere);
 
   // create twenty clones of the protoSphere
   // and add each to the group
@@ -43,9 +28,9 @@ function createMeshGroup() {
     const sphere = protoSphere.clone();
 
     // position the spheres on around a circle
-    sphere.position.x = Math.cos(2 * Math.PI * i);
-    sphere.position.y = Math.sin(2 * Math.PI * i);
-    sphere.position.z = -i * 5;
+    sphere.position.x = Math.cos(5 * Math.PI * i);
+    sphere.position.y = Math.sin(5 * Math.PI * i);
+    sphere.position.z = -i * 2.5;
 
     sphere.scale.multiplyScalar(0.01 + i);
 
@@ -53,7 +38,7 @@ function createMeshGroup() {
   }
 
   // every sphere inside the group will be scaled
-  group.scale.multiplyScalar(2);
+  group.scale.multiplyScalar(1);
 
   const radiansPerSecond = MathUtils.degToRad(30);
 
