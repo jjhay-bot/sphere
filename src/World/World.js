@@ -20,14 +20,14 @@ class World {
     scene = createScene();
     loop = new Loop(camera, scene, renderer);
     container.append(renderer.domElement);
-
+  
     const controls = createControls(camera, renderer.domElement);
-    // const cube = createCube();
     const { ambientLight, mainLight } = createLights();
-
-    loop.updatables.push(controls);
-    // scene.add(ambientLight, mainLight, cube);
-
+    const meshGroup = createMeshGroup();
+  
+    loop.updatables.push(controls, meshGroup);
+    scene.add(ambientLight, mainLight, meshGroup);
+  
     const resizer = new Resizer(container, camera, renderer);
   }
 
